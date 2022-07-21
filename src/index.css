@@ -1,13 +1,54 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "Euclid-Bold";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Bold.ttf");
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+    font-family: "Euclid-Bold Italic";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Bold\ Italic.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Italic";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Italic.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Regular";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Regular.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-SemiBold";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ SemiBold.ttf");
+}
+
+
+@font-face {
+    font-family: "Euclid-SemiBold Italic";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ SemiBold\ Italic.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Light";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Light.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Light Italic";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Light\ Italic.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Medium";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Medium.ttf");
+}
+
+@font-face {
+    font-family: "Euclid-Medium Italic";
+    src: url("./asset/fonts/euclid-circular-a-cufonfonts/Euclid\ Circular\ A\ Medium\ Italic.ttf");
 }
