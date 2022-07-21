@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
-import Blog from "./components/Blog";
+import Home from "./Home";
+
 import Saved from "./components/Saved";
 import Login from "./components/Login";
 import Search from "./components/Search";
@@ -8,8 +9,10 @@ function App() {
   return (
     <div className="App">
       <Nav />
+
       <Search />
-      <Blog />
+      <Home />
+
       <Saved />
       <Login />
     </div>
