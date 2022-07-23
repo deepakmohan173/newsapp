@@ -51,6 +51,19 @@ const Login = () => {
                           >
                             Log in
                           </button>
+                          <div>
+                            <button
+                              className="inline-block px-6 py-2.5 bg-sky-800 text-black font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                              type="button"
+                              data-mdb-ripple="true"
+                              data-mdb-ripple-color="light"
+                              style={{
+                                backgroundColor: "rgba(251, 251, 251, 0.2)",
+                              }}
+                            >
+                              Sign Up
+                            </button>
+                          </div>
                         </div>
                       </form>
                     </div>

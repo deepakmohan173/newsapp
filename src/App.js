@@ -1,21 +1,18 @@
 import Nav from "./components/Nav";
 import Home from "./Home";
-
 import Saved from "./components/Saved";
 import Login from "./components/Login";
-import Search from "./components/Search";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Nav />
-
-      <Search />
-      <Home />
-
-      <Saved />
-      <Login />
-    </div>
+    <Routes>
+      <Route element={<Nav />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/saved" element={<Saved />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
+    </Routes>
   );
 }
 
