@@ -8,7 +8,8 @@ const Home = () => {
     axios
       .get("http://localhost:8080/news?query=java")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        setBlogs(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -19,11 +20,15 @@ const Home = () => {
     <div>
       <div className="container my-24 px-6 mx-auto">
         <section className="mb-32 text-gray-800 text-center lg:text-left">
-          <h2 className="text-3xl font-bold mb-12 text-center">
-            Projects we are proud of
-          </h2>
-          <div className="grid lg:grid-cols-3 gap-x-6">
-            <Blog />
+          <h2 className="text-3xl font-bold mb-12 text-center">Hot News</h2>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {blogs.map((blog) => (
+              <Blog
+                imageurl={blog.urlToImage}
+                title={blog.title}
+                description={blog.description}
+              />
+            ))}
           </div>
         </section>
       </div>
