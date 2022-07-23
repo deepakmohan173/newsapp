@@ -18,7 +18,7 @@ const Nav = () => {
           className="font-bold text-2xl cursor-pointer flex items-center  
     text-gray-800"
         >
-          <span className="text-3xl text-indigo-600 mr-1 pt-2">
+          <span className="text-3xl font-euclid_medium text-indigo-600 mr-1 pt-2">
             <ion-icon name="logo-ionic"></ion-icon>
           </span>
           The News App
