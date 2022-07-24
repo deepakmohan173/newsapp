@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Blog from "./components/Blog";
 import axios from "axios";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+  // const [ loading, setLoading ] = useState( true );
+  const [searchResult, setSearchResult] = useState([]);
+
   useEffect(() => {
     // let location;
     // axios.get(process.env.REACT_APP_LOC_API).then((res) => {
@@ -22,9 +25,23 @@ const Home = () => {
   }, []);
 
   function SearchBar() {
+    const inputRef = useRef(null);
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const query = inputRef.current.value;
+      axios
+        .get("http://localhost:8080/news?query=" + query)
+        .then((res) => {
+          setSearchResult(res.data);
+          console.log(searchResult);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     return (
       <div className="m-24">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
@@ -44,6 +61,7 @@ const Home = () => {
               </svg>
             </div>
             <input
+              ref={inputRef}
               type="search"
               id="default-search"
               className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-blue-400"
