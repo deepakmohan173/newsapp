@@ -5,6 +5,12 @@ import axios from "axios";
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
   useEffect(() => {
+    let location;
+    axios.get(process.env.REACT_APP_LOC_API).then((res) => {
+      location = res.data["location"]["country"];
+      console.log(location);
+    })
+
     axios
       .get("http://localhost:8080/news?query=java")
       .then((res) => {
