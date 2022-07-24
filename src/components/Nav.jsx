@@ -62,13 +62,13 @@ const Nav = () => {
             }`}
           >
             <Link to="/">
-              <li className="md:ml-8 text-xl md:my-0 my-7">Home</li>
+              <li className="md:ml-8 text-xl md:my-0 my-7" key="home">Home</li>
             </Link>
             <Link to="/saved">
-              <li className="md:ml-8 text-xl md:my-0 my-7">Saved</li>
+              <li className="md:ml-8 text-xl md:my-0 my-7" key="saved">Saved</li>
             </Link>
             <Link to="/login">
-              <li className="md:ml-8 text-xl md:my-0 my-7">Login</li>
+              <li className="md:ml-8 text-xl md:my-0 my-7" key="login">Login</li>
             </Link>
           </ul>
         </div>
