@@ -98,7 +98,11 @@ const Home = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               {blogs.map((blog) => (
                 <Blog
-                  imageurl={blog.urlToImage}
+                  imageurl={
+                    blog.urlToImage === null
+                      ? "https://via.placeholder.com/125?Text= No Image"
+                      : blog.urlToImage
+                  }
                   title={blog.title}
                   description={blog.description}
                   key={blog.title}
