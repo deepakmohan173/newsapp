@@ -1,87 +1,60 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Blog from "./components/Blog";
 import axios from "axios";
+import SearchBar from "./components/SearchBar";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [headlines, setHeadlines] = useState([]);
+  const [entertainment, setEntertainment] = useState([]);
+  const [business, setBusiness] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
-  useEffect(() => {
-    // let location;
-    // axios.get(process.env.REACT_APP_LOC_API).then((res) => {
-    //   location = res.data["location"]["country"];
-    //   console.log(location);
-    // })
-
+  const getArticles = (category, location, setBlogs) => {
+    let url = "http://localhost:8080/feed?country="+location;
+    url = category === null ? url : url + "&category=" + category;
     axios
-      .get("http://localhost:8080/news?query=java")
+      .get(url)
       .then((res) => {
         setBlogs(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  useEffect(() => {
+    let location = "IN";
+    // axios.get(process.env.REACT_APP_LOC_API).then((res) => {
+    //   location = res.data["location"]["country"];
+    //   console.log(location);
+    // })
+
+    getArticles(null, location, setHeadlines);
+    getArticles("business", location, setBusiness);
+    getArticles("entertainment", location, setEntertainment);
   }, []);
 
-  function SearchBar() {
-    const inputRef = useRef(null);
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const query = inputRef.current.value;
-      setLoading(true);
-      axios
-        .get("http://localhost:8080/news?query=" + query)
-        .then((res) => {
-          setSearchResult(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+  const ArticleSection = props => {
     return (
-      <div className="m-24">
-        <form onSubmit={handleSubmit}>
-          <div className="relative">
-            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5 text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                ></path>
-              </svg>
-            </div>
-            <input
-              ref={inputRef}
-              type="search"
-              id="default-search"
-              className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-blue-400"
-              placeholder="Search News"
-              required
-            ></input>
-            <button
-              type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
-            >
-              Search
-            </button>
-          </div>
-        </form>
-      </div>
-    );
+    <section className="mt-12 mb-32 text-gray-800 text-center lg:text-left">
+    <h2 className="text-4xl font-bold mb-12 text-center">{props.category}</h2>
+    <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {props.blogs.map((blog) => (
+        <Blog
+          imageurl={blog.urlToImage === null ? "https://via.placeholder.com/150?text=No+Image" : blog.urlToImage}
+          title={blog.title}
+          description={blog.description}
+          key={blog.title}
+        />
+      ))}
+    </div>
+    </section>);
   }
+
   return (
     <div>
+<<<<<<< HEAD
       <SearchBar />
       <div
         className={
@@ -110,6 +83,31 @@ const Home = () => {
               ))}
             </div>
           </section>
+=======
+      <SearchBar setLoading={setLoading} setSearchResult={setSearchResult}/>
+      <div className="container px-24 mx-auto pt-7">
+        <div
+          className={
+            loading === true
+              ? "hidden"
+              : searchResult.length !== 0
+              ? "hidden"
+              : ""
+          }
+        >
+          <ArticleSection category="Hot News 🔥" blogs={headlines}/>
+          <ArticleSection category="Entertainment 🎭" blogs={entertainment}/>
+          <ArticleSection category="Business 💼" blogs={business}/>
+        </div>
+        <div
+          className={
+              searchResult.length !== 0
+              ? ""
+              : "hidden"
+          }
+        >
+          <ArticleSection category={"Search Results"} blogs={searchResult}/>
+>>>>>>> caf5e8893197ba2f71b577aee019a28ea9e586db
         </div>
       </div>
     </div>

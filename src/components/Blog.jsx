@@ -4,12 +4,15 @@ const Blog = (props) => {
   return (
     <div className="mb-12 lg:mb-0 ">
       <div
-        className="shadow-lg rounded-lg relative overflow-hidden bg-no-repeat bg-cover mb-6"
-        style={{ backgroundPosition: "50%" }}
+        className="w-full shadow-lg rounded-lg relative overflow-hidden mb-6"
         data-mdb-ripple="true"
         data-mdb-ripple-color="light"
       >
+<<<<<<< HEAD
         <img src={props.imageurl} className="w-70 h-60 object-center" />
+=======
+        <img src={props.imageurl} className="w-full h-64" alt={props.title}/>
+>>>>>>> caf5e8893197ba2f71b577aee019a28ea9e586db
         <a href="#!">
           <div
             className="mask absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"
