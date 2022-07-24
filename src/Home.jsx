@@ -20,12 +20,6 @@ const Home = () => {
     return (
       <div className="m-24">
         <form>
-          <label
-            htmlFor="default-search"
-            className="mb-2 text-sm font-medium text-gray-900 sr-only "
-          >
-            Search
-          </label>
           <div className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
@@ -47,7 +41,7 @@ const Home = () => {
             <input
               type="search"
               id="default-search"
-              className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 dark focus:ring-blue-500 focus:border-blue-500:bg-gray-100"
+              className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-blue-500"
               placeholder="Search News"
               required
             ></input>
