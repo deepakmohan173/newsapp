@@ -1,8 +1,10 @@
+import React from "react";
 import { useRef } from "react";
 import axios from "axios";
 
-const SearchBar = (props) => {
+const SearchBar = props => {
     const inputRef = useRef(null);
+    
     const handleSubmit = (e) => {
       e.preventDefault();
       const query = inputRef.current.value;
@@ -17,8 +19,9 @@ const SearchBar = (props) => {
           console.log(err);
         });
     };
+
     return (
-      <div className="m-24">
+      <div className="mx-24 mt-24">
         <form onSubmit={handleSubmit}>
           <div className="relative">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -57,3 +60,5 @@ const SearchBar = (props) => {
       </div>
     );
   }
+
+export default SearchBar;
