@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
-  // const [ loading, setLoading ] = useState( true );
+  const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
@@ -29,11 +29,12 @@ const Home = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       const query = inputRef.current.value;
+      setLoading(true);
       axios
         .get("http://localhost:8080/news?query=" + query)
         .then((res) => {
           setSearchResult(res.data);
-          console.log(searchResult);
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err);
@@ -82,7 +83,15 @@ const Home = () => {
   return (
     <div>
       <SearchBar />
-      <div className="hidden">
+      <div
+        className={
+          loading === true
+            ? "hidden"
+            : searchResult.length !== 0
+            ? "hidden"
+            : ""
+        }
+      >
         <div className="container my-24 px-6 mx-auto pt-7 ">
           <section className="mb-32 text-gray-800 text-center lg:text-left">
             <h2 className="text-3xl font-bold mb-12 text-center">Hot News</h2>
