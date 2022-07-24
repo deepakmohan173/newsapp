@@ -14,7 +14,6 @@ const Home = () => {
     axios
       .get("http://localhost:8080/news?query=java")
       .then((res) => {
-        // console.log(res.data);
         setBlogs(res.data);
       })
       .catch((err) => {
