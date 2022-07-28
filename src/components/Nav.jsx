@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { useStoreState } from "pullstate";
+import { LoginStore } from "../store/LoginStore";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
+  const isLoggedin = useStoreState(LoginStore, s => s.isLoggedIn);
+  
+  const onLogout = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <div
@@ -65,8 +73,9 @@ const Nav = () => {
               <li className="md:ml-8 text-xl md:my-0 my-7">Saved</li>
             </Link>
             <Link to="/login">
-              <li className="md:ml-8 text-xl md:my-0 my-7">Login</li>
+              <li className={"md:ml-8 text-xl md:my-0 my-7 " + (isLoggedin ? "hidden" : "")}>Login</li>
             </Link>
+            <li className={"md:ml-8 text-xl md:my-0 my-7 cursor-pointer " + (isLoggedin ? "" : "hidden")} onClick={onLogout}>Logout</li>
           </ul>
         </div>
       </div>

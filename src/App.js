@@ -1,7 +1,7 @@
 import Nav from "./components/Nav";
 import Home from "./Home";
 import Saved from "./components/Saved";
-import Login from "./components/Login";
+import Login from "./Login";
 import { Routes, Route } from "react-router-dom";
 
 function App() {

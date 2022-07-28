@@ -1,6 +1,5 @@
 import React from "react";
 import { useRef } from "react";
-import back from "../asset/images/chevron-left-solid.svg";
 import axios from "axios";
 
 const SearchBar = (props) => {
@@ -24,7 +23,7 @@ const SearchBar = (props) => {
   const Back = ({ state, className }) => {
     return (
       <svg
-        className={"w-5 text-gray-300" + className}
+        className={"w-5 text-gray-300 cursor-pointer" + className}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 320 512"
         onClick={() => {
