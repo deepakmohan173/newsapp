@@ -1,37 +1,34 @@
 import React, { useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useStoreState } from "pullstate";
 import { LoginStore } from "../store/LoginStore";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
   const isLoggedin = useStoreState(LoginStore, s => s.isLoggedIn);
+  const navigate = useNavigate();
   
   const onLogout = (e) => {
     e.preventDefault();
+    LoginStore.update(s => {
+      s.isLoggedIn = false;
+      s.username = "";
+    });
+    navigate("/login");
   }
 
   return (
     <div>
-      <div
-        className="shadow-md w-full fixed top-0 left-0 font-euclid_regular z-10
-    "
-      >
+      <div className="shadow-md w-full fixed top-0 left-0 font-euclid_regular z-10">
         <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
-          <div
-            className="font-bold text-2xl cursor-pointer flex items-center  
-    text-gray-800"
-          >
+          <div className="font-bold text-2xl cursor-pointer flex items-center text-gray-800">
             <span className="text-3xl font-euclid_medium  mr-1 pt-2">
               <ion-icon name="logo-ionic"></ion-icon>
             </span>
             The News App
           </div>
 
-          <div
-            onClick={() => setOpen(!open)}
-            className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden"
-          >
+          <div onClick={() => setOpen(!open)} className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
             {open ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

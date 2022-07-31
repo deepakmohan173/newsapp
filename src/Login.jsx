@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { useRef } from "react";
 import { useState } from "react";
 import { InputField } from "./components/InputField";
+import { LoginStore } from "./store/LoginStore";
 
 const Login = () => {
   const [isSignin, setIsSignin] = useState(false);
@@ -12,10 +14,49 @@ const Login = () => {
 
   const onLogin = (e) => {
     e.preventDefault();
+    const params = {
+      username: usernameRef.current,
+      password: passwordRef.current,
+    };
+
+    axios
+    .post("http://localhost:8080/user/login",params)
+    .then((res)=>{
+      console.log(res.data);
+      // localStorage.setItem("Bearer", res.data["Token"]);
+      // LoginStore.update(s => {
+      //   s.isLoggedIn = true;
+      //   s.username = res.data["Username"];
+      // });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
   const onSignup = (e) => {
     e.preventDefault();
-  }
+    const user = {
+      firstName: firstNameRef.current,
+      lastName: lastNameRef.current,
+      eamil: emailRef.current,
+      username: usernameRef.current,
+      password: passwordRef.current,
+    };
+
+    axios
+    .post("http://localhost:8080/user/signup",JSON.stringify(user))
+    .then((res)=>{
+      console.log(res.data);
+      // localStorage.setItem("Bearer", res.data["Token"]);
+      // LoginStore.update(s => {
+      //   s.isLoggedIn = true;
+      //   s.username = res.data["Username"];
+      // });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    }
 
   return (
     <div className="flex mt-12 items-center justify-center font-euclid_regular " style={{height: "calc(100vh - 48px)"}}>

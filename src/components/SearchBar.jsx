@@ -8,12 +8,11 @@ const SearchBar = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const query = inputRef.current.value;
-    props.setLoading(true);
     axios
       .get("http://localhost:8080/news?query=" + query)
       .then((res) => {
+        console.log(res.data);
         props.setSearchResult(res.data);
-        props.setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +43,6 @@ const SearchBar = (props) => {
       <Back
         className={props.searchResult.length === 0 ? " hidden" : ""}
         state={props.setSearchResult}
-        load={props.setLoading}
       />
       <form className="w-full mx-8 " onSubmit={handleSubmit}>
         <div className="relative">

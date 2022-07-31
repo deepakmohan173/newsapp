@@ -7,7 +7,6 @@ const Home = () => {
   const [headlines, setHeadlines] = useState([]);
   const [entertainment, setEntertainment] = useState([]);
   const [business, setBusiness] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
   const getArticles = (category, location, setBlogs) => {
@@ -51,7 +50,7 @@ const Home = () => {
               }
               title={blog.title}
               description={blog.description}
-              key={blog.title}
+              key={blog.url}
               url={blog.url}
             />
           ))}
@@ -63,21 +62,11 @@ const Home = () => {
   return (
     <div>
       <SearchBar
-        setLoading={setLoading}
         searchResult={searchResult}
         setSearchResult={setSearchResult}
       />
-
       <div className=" px-32 pt-7">
-        <div
-          className={
-            loading === true
-              ? "hidden"
-              : searchResult.length !== 0
-              ? "hidden"
-              : ""
-          }
-        >
+        <div className={searchResult.length !== 0 ? "hidden" : ""}>
           <ArticleSection category="Hot News 🔥" blogs={headlines} />
           <ArticleSection category="Entertainment 🎭" blogs={entertainment} />
           <ArticleSection category="Business 💼" blogs={business} />
