@@ -5,17 +5,17 @@ import { LoginStore } from "../store/LoginStore";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
-  const isLoggedin = useStoreState(LoginStore, s => s.isLoggedIn);
+  const isLoggedin = useStoreState(LoginStore, (s) => s.isLoggedIn);
   const navigate = useNavigate();
-  
+
   const onLogout = (e) => {
     e.preventDefault();
-    LoginStore.update(s => {
+    localStorage.removeItem("Token");
+    LoginStore.update((s) => {
       s.isLoggedIn = false;
-      s.username = "";
     });
     navigate("/login");
-  }
+  };
 
   return (
     <div>
@@ -28,7 +28,10 @@ const Nav = () => {
             The News App
           </div>
 
-          <div onClick={() => setOpen(!open)} className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
+          <div
+            onClick={() => setOpen(!open)}
+            className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden"
+          >
             {open ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,12 +70,32 @@ const Nav = () => {
               <li className="md:ml-8 text-xl md:my-0 my-7">Home</li>
             </Link>
             <Link to="/saved">
-              <li className="md:ml-8 text-xl md:my-0 my-7">Saved</li>
+              <li
+                className={
+                  "md:ml-8 text-xl md:my-0 my-7 " + (isLoggedin ? "" : "hidden")
+                }
+              >
+                Saved
+              </li>
             </Link>
             <Link to="/login">
-              <li className={"md:ml-8 text-xl md:my-0 my-7 " + (isLoggedin ? "hidden" : "")}>Login</li>
+              <li
+                className={
+                  "md:ml-8 text-xl md:my-0 my-7 " + (isLoggedin ? "hidden" : "")
+                }
+              >
+                Login
+              </li>
             </Link>
-            <li className={"md:ml-8 text-xl md:my-0 my-7 cursor-pointer " + (isLoggedin ? "" : "hidden")} onClick={onLogout}>Logout</li>
+            <li
+              className={
+                "md:ml-8 text-xl md:my-0 my-7 cursor-pointer " +
+                (isLoggedin ? "" : "hidden")
+              }
+              onClick={onLogout}
+            >
+              Logout
+            </li>
           </ul>
         </div>
       </div>
