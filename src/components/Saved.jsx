@@ -3,8 +3,16 @@ import { useEffect } from "react";
 import { LoginStore } from "../store/LoginStore";
 
 const Saved = (props) => {
+<<<<<<< HEAD
   useEffect(() => {}, []);
 
+=======
+  useEffect(() => {
+    
+  
+  }, [])
+  
+>>>>>>> 4024324a4532adb09098bc2d6174303b4605b0c0
   const SavedArticle = (props) => {
     return (
       <div className="flex flex-wrap mb-6">
