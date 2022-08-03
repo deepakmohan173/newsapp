@@ -32,11 +32,8 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
       });
-<<<<<<< HEAD
+
     navigate("/");
-=======
-      navigate("/");
->>>>>>> 4024324a4532adb09098bc2d6174303b4605b0c0
   };
 
   const onSignup = (e) => {
@@ -53,11 +50,8 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
       });
-<<<<<<< HEAD
+
     navigate("/");
-=======
-      navigate("/");
->>>>>>> 4024324a4532adb09098bc2d6174303b4605b0c0
   };
 
   return (
@@ -91,11 +85,8 @@ const Login = () => {
           required={!isSignin}
         />
         <InputField
-<<<<<<< HEAD
           name={isSignin === true ? "Email or Username" : "Username"}
-=======
           name={isSignin === true ? "Email or Username" : "Email"}
->>>>>>> 4024324a4532adb09098bc2d6174303b4605b0c0
           label="username"
           type="text"
           signupForm={signupForm}
