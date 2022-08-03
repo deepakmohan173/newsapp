@@ -67,12 +67,29 @@ const Home = () => {
       />
       <div className=" px-32 pt-7">
         <div className={searchResult.length !== 0 ? "hidden" : ""}>
-          <ArticleSection category="Hot News 🔥" blogs={headlines} />
-          <ArticleSection category="Entertainment 🎭" blogs={entertainment} />
-          <ArticleSection category="Business 💼" blogs={business} />
+          <ArticleSection
+            className=" font-euclid_bold"
+            category="Trending News 🔥"
+            blogs={headlines}
+          />
+          <h1>Hello</h1>
+          <ArticleSection
+            className=" font-euclid_bold"
+            category="Entertainment 🎭"
+            blogs={entertainment}
+          />
+          <ArticleSection
+            className=" font-euclid_bold"
+            category="Business 💼"
+            blogs={business}
+          />
         </div>
         <div className={searchResult.length !== 0 ? "" : "hidden"}>
-          <ArticleSection category="Search Results" blogs={searchResult} />
+          <ArticleSection
+            className=" font-euclid_bold"
+            category="Search Results"
+            blogs={searchResult}
+          />
         </div>
       </div>
     </div>

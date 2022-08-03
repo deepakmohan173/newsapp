@@ -1,92 +1,110 @@
 import axios from "axios";
-import React, { useRef } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputField } from "./components/InputField";
 import { LoginStore } from "./store/LoginStore";
 
 const Login = () => {
-  const [isSignin, setIsSignin] = useState(false);
-  const firstNameRef = useRef("");
-  const lastNameRef = useRef("");
-  const emailRef = useRef("");
-  const usernameRef = useRef("");
-  const passwordRef = useRef("");
+  const [isSignin, setIsSignin] = useState(true);
+  const [signupForm, setsignupForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
   const onLogin = (e) => {
     e.preventDefault();
-    const params = {
-      username: usernameRef.current,
-      password: passwordRef.current,
-    };
-
     axios
-    .post("http://localhost:8080/user/login",params)
-    .then((res)=>{
-      console.log(res.data);
-      // localStorage.setItem("Bearer", res.data["Token"]);
-      // LoginStore.update(s => {
-      //   s.isLoggedIn = true;
-      //   s.username = res.data["Username"];
-      // });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
+      .post("http://localhost:8080/user/login", {
+        username: signupForm.username,
+        password: signupForm.password,
+      })
+      .then((res) => {
+        localStorage.setItem("Token", res.data["Token"]);
+        LoginStore.update((s) => {
+          s.isLoggedIn = true;
+        });
+        console.log(localStorage.getItem("Token"));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate("/");
+  };
+
   const onSignup = (e) => {
     e.preventDefault();
-    const user = {
-      firstName: firstNameRef.current,
-      lastName: lastNameRef.current,
-      eamil: emailRef.current,
-      username: usernameRef.current,
-      password: passwordRef.current,
-    };
-
     axios
-    .post("http://localhost:8080/user/signup",JSON.stringify(user))
-    .then((res)=>{
-      console.log(res.data);
-      // localStorage.setItem("Bearer", res.data["Token"]);
-      // LoginStore.update(s => {
-      //   s.isLoggedIn = true;
-      //   s.username = res.data["Username"];
-      // });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    }
+      .post("http://localhost:8080/user/signup", signupForm)
+      .then((res) => {
+        localStorage.setItem("Token", res.data["Token"]);
+        LoginStore.update((s) => {
+          s.isLoggedIn = true;
+        });
+        console.log(localStorage.getItem("Token"));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigate("/");
+  };
 
   return (
-    <div className="flex mt-12 items-center justify-center font-euclid_regular " style={{height: "calc(100vh - 48px)"}}>
-      <form className="w-1/3 shadow-xl p-8 rounded-lg border-2 border-solid border-gray-300" onSubmit={isSignin === true ? onLogin : onSignup}>
+    <div
+      className="flex mt-12 items-center justify-center font-euclid_regular "
+      style={{ height: "calc(100vh - 48px)" }}
+    >
+      <form
+        className="w-1/3 shadow-xl p-8 rounded-lg border-2 border-solid border-gray-300"
+        onSubmit={isSignin === true ? onLogin : onSignup}
+      >
         <h1 className="text-center mb-2 font-euclid_medium text-2xl">
           {isSignin === true ? "Sign In" : "Sign Up"}{" "}
         </h1>
         <InputField
           className={isSignin === true ? "hidden" : ""}
           name="First Name"
-          label="first name"
+          label="firstName"
           type="text"
-          inputRef={firstNameRef}
+          signupForm={signupForm}
+          setsignupForm={setsignupForm}
+          required={!isSignin}
         />
         <InputField
           className={isSignin === true ? "hidden" : ""}
           name="Last Name"
-          label="last name"
+          label="lastName"
           type="text"
-          inputRef={lastNameRef}
+          signupForm={signupForm}
+          setsignupForm={setsignupForm}
+          required={!isSignin}
         />
         <InputField
-          name="Username"
+          name={isSignin === true ? "Email or Username" : "Username"}
           label="username"
           type="text"
-          className={isSignin === true ? "hidden" : ""}
-          inputRef={usernameRef}
+          signupForm={signupForm}
+          setsignupForm={setsignupForm}
         />
-        <InputField name={isSignin === true ? "Email or Username" : "Email"} label="email" type="email" inputRef={emailRef}/>
-        <InputField name="Password" label="password" type="password" inputRef={passwordRef}/>
+        <InputField
+          name="Email"
+          label="email"
+          type="email"
+          className={isSignin === true ? "hidden" : ""}
+          signupForm={signupForm}
+          setsignupForm={setsignupForm}
+          required={!isSignin}
+        />
+        <InputField
+          name="Password"
+          label="password"
+          type="password"
+          signupForm={signupForm}
+          setsignupForm={setsignupForm}
+        />
         <button
           type="submit"
           className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "

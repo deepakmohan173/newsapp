@@ -11,7 +11,6 @@ const SearchBar = (props) => {
     axios
       .get("http://localhost:8080/news?query=" + query)
       .then((res) => {
-        console.log(res.data);
         props.setSearchResult(res.data);
       })
       .catch((err) => {
