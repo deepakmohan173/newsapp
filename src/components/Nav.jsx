@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { useStoreState } from "pullstate";
 import { LoginStore } from "../store/LoginStore";
-import avatar from "../asset/images/avatar.png";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -95,7 +94,6 @@ const Nav = () => {
               }
               onClick={onLogout}
             >
-              <img src={avatar} className="rounded-full h-8 w-8" />
               Logout
             </li>
           </ul>

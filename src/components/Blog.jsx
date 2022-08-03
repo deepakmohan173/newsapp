@@ -12,10 +12,12 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
+import axios from "axios";
 
 const Blog = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(props.isSaved);
+  const token = "Bearer " + localStorage.getItem("Token");
   return (
     <div className=" bg-white shadow-lg p-3 rounded-lg">
       <div className="mb-12 h-full flex flex-col justify-between lg:mb-0 ">
@@ -24,7 +26,7 @@ const Blog = (props) => {
           data-mdb-ripple="true"
           data-mdb-ripple-color="light"
         >
-          <img src={props.imageurl} className="w-full h-64" alt={props.title} />
+          <img src={props.urlToImage} className="w-full h-64" alt={props.title} />
           <a rel="noopener noreferrer" target="_blank" href={props.url}>
             <div
               className="mask absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 transition duration-300 ease-in-out hover:opacity-100"
@@ -33,12 +35,11 @@ const Blog = (props) => {
           </a>
         </div>
         <h5 className="text-lg font-bold mb-3">{props.title}</h5>
-
         <p className="text-gray-500 line-clamp-3 ">{props.description}</p>
         <div className="flex justify-start gap-7 pb-4">
           <img
             src={share}
-            className="h-5 w-5 mt-4"
+            className="h-5 w-5 mt-4 cursor-pointer"
             alt="share"
             onClick={() => setIsOpen(!isOpen)}
           />
@@ -46,15 +47,29 @@ const Blog = (props) => {
             <img
               src={saved}
               alt="savefill"
-              onClick={() => setIsSaved(!isSaved)}
-              className="h-5 w-5 mt-4"
+              onClick={() => {
+                setIsSaved(!isSaved);
+                axios.delete("http://localhost:8080/feed/delete",{
+                  headers: {"Authorization":token},
+                  data: props.url,
+                });
+              }}
+              className="h-5 w-5 mt-4 cursor-pointer"
             />
           ) : (
             <img
               src={save}
               alt="save"
-              className="h-5 w-5 mt-4"
-              onClick={() => setIsSaved(!isSaved)}
+              className="h-5 w-5 mt-4 cursor-pointer"
+              onClick={() => {
+                setIsSaved(!isSaved);
+                axios.put("http://localhost:8080/feed/save",{
+                  username: localStorage.getItem("Username"),
+                  news: props
+                },{
+                  headers: {"Authorization": token}
+                });
+              }}
             />
           )}
         </div>
@@ -105,13 +120,6 @@ const Blog = (props) => {
                   onClick={() => navigator.clipboard.writeText(props.url)}
                 />
               </div>
-              {/* <Tooltip label='Copy link' hasArrow placement='auto'>
-                                                <Box rounded="full" width="fit-content" onClick={navigator.clipboard.writeText(window.location.href)} p="1" border="2px" borderColor="black">
-                                                    <Text fontSize="3xl" cursor="pointer">
-                                                        <IoMdCopy />
-                                                    </Text>
-                                                </Box>
-                                            </Tooltip> */}
             </div>
           </div>
         </div>

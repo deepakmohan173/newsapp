@@ -24,6 +24,7 @@ const Login = () => {
       })
       .then((res) => {
         localStorage.setItem("Token", res.data["Token"]);
+        localStorage.setItem("Username", res.data["Username"]);
         LoginStore.update((s) => {
           s.isLoggedIn = true;
         });
@@ -32,7 +33,6 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
       });
-
     navigate("/");
   };
 
@@ -42,6 +42,7 @@ const Login = () => {
       .post("http://localhost:8080/user/signup", signupForm)
       .then((res) => {
         localStorage.setItem("Token", res.data["Token"]);
+        localStorage.setItem("Username", res.data["Username"]);
         LoginStore.update((s) => {
           s.isLoggedIn = true;
         });
@@ -50,7 +51,6 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
       });
-
     navigate("/");
   };
 

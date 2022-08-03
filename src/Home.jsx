@@ -8,6 +8,7 @@ const Home = () => {
   const [entertainment, setEntertainment] = useState([]);
   const [business, setBusiness] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
+  const [savedArticles, setSavedArticles] = useState([]);
 
   const getArticles = (category, location, setBlogs) => {
     let url = "http://localhost:8080/feed?country=" + location;
@@ -23,6 +24,8 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const username = localStorage.getItem("Username");
+    const token = "Bearer " + localStorage.getItem("Token");
     let location = "IN";
     // axios.get(process.env.REACT_APP_LOC_API).then((res) => {
     //   location = res.data["location"]["country"];
@@ -32,6 +35,11 @@ const Home = () => {
     getArticles(null, location, setHeadlines);
     getArticles("business", location, setBusiness);
     getArticles("entertainment", location, setEntertainment);
+    axios.get("http://localhost:8080/user/"+username+"/saved",{
+      headers: {"Authorization": token}
+    }).then((res)=>{
+      setSavedArticles(res.data);
+    })
   }, []);
 
   const ArticleSection = (props) => {
@@ -43,7 +51,7 @@ const Home = () => {
         <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {props.blogs.map((blog) => (
             <Blog
-              imageurl={
+            urlToImage={
                 blog.urlToImage === null
                   ? "https://via.placeholder.com/150?text=No+Image"
                   : blog.urlToImage
@@ -52,6 +60,7 @@ const Home = () => {
               description={blog.description}
               key={blog.url}
               url={blog.url}
+              isSaved={savedArticles.find(article => article.url === blog.url) !== undefined ? true : false}
             />
           ))}
         </div>
@@ -72,7 +81,6 @@ const Home = () => {
             category="Trending News 🔥"
             blogs={headlines}
           />
-          <h1>Hello</h1>
           <ArticleSection
             className=" font-euclid_bold"
             category="Entertainment 🎭"
