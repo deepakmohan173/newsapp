@@ -95,11 +95,8 @@ const Nav = () => {
               }
               onClick={onLogout}
             >
-<<<<<<< HEAD
               <img src={avatar} className="rounded-full h-8 w-8" />
-=======
               Logout
->>>>>>> 4024324a4532adb09098bc2d6174303b4605b0c0
             </li>
           </ul>
         </div>
