@@ -86,7 +86,6 @@ const Login = () => {
         />
         <InputField
           name={isSignin === true ? "Email or Username" : "Username"}
-          name={isSignin === true ? "Email or Username" : "Email"}
           label="username"
           type="text"
           signupForm={signupForm}
